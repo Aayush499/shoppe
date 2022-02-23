@@ -42,6 +42,7 @@ function CheckBox(props) {
                 <Panel header="Tags" key="1">
                     {renderCheckboxLists()}
                 </Panel>
+                
             </Collapse>
         </div>
     )

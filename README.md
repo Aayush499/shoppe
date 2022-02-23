@@ -1,16 +1,9 @@
-Hello, My Friends  
-Thank you for having interest in this repository ! 
+Assignment 1:
 
-To use this application, 
+I have named the frontend client and backend server as this was how I had began.
 
-1. make dev.js file inside config folder 
-2. put mongoDB info into dev.js file 
-3. Type  " npm install " inside the root directory  ( Download Server Dependencies ) 
-4. Type " npm install " inside the client directory ( Download Front-end Dependencies )
+Start teh mongodb server in a terminal
 
-If you have problem, feel free to ask me ^^ 
+Then run the command "npm run dev" in the root of this project to run both frontedn and backend concurrently.
 
-You can watch the tutorial for this app.
-
-https://www.youtube.com/watch?v=zaWtIkJgah4&t=5569s
-
+The dropdown menu aspec for registration was not implemented. It is controlled via a variable called userType.

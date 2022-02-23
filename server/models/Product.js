@@ -33,7 +33,19 @@ const productSchema = mongoose.Schema({
     views: {
         type: Number,
         default: 0
-    }
+    },
+    favorite: {
+        type: Number,
+        default: 0
+    },
+    rating: {
+        type: Number,
+        default: 1
+    },
+    meat: {
+        type: Number,
+        default: 1
+    },
 }, { timestamps: true })
 
 

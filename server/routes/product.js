@@ -51,12 +51,19 @@ router.post("/uploadProduct", auth, (req, res) => {
     })
 
 });
+router.post("/profiler", auth, (req, res) => {
+
+    //save all the data we got from the client into the DB 
+    
+
+});
+
 
 
 router.post("/getProducts", (req, res) => {
 
     let order = req.body.order ? req.body.order : "desc";
-    let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+    let sortBy = req.body.sortBy ? req.body.sortBy : "price";
     let limit = req.body.limit ? parseInt(req.body.limit) : 100;
     let skip = parseInt(req.body.skip);
 

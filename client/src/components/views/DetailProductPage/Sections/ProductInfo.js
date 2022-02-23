@@ -20,8 +20,8 @@ function ProductInfo(props) {
         <div>
             <Descriptions title="Product Info">
                 <Descriptions.Item label="Price"> {Product.price}</Descriptions.Item>
-                <Descriptions.Item label="Sold">{Product.sold}</Descriptions.Item>
-                <Descriptions.Item label="View"> {Product.views}</Descriptions.Item>
+                 
+                <Descriptions.Item label="Quantity"> {Product.views}</Descriptions.Item>
                 <Descriptions.Item label="Description"> {Product.description}</Descriptions.Item>
             </Descriptions>
 
@@ -29,10 +29,10 @@ function ProductInfo(props) {
             <br />
             <br />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button size="large" shape="round" type="danger"
+                <Button size="large"   type="danger"
                     onClick={addToCarthandler}
                 >
-                    Add to Cart
+                   BUY
                     </Button>
             </div>
         </div>

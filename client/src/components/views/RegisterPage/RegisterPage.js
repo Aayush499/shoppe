@@ -4,13 +4,15 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { registerUser } from "../../../_actions/user_actions";
 import { useDispatch } from "react-redux";
-
+  
 import {
   Form,
   Input,
   Button,
 } from 'antd';
 
+//var usertype = "buyer";
+var usertype = "vendor"
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -33,7 +35,7 @@ const tailFormItemLayout = {
     },
   },
 };
-
+ 
 function RegisterPage(props) {
   const dispatch = useDispatch();
   return (
@@ -61,17 +63,33 @@ function RegisterPage(props) {
           .oneOf([Yup.ref('password'), null], 'Passwords must match')
           .required('Confirm Password is required')
       })}
+      
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
-
+          let dataToSubmit;
+          if(usertype == "vendor")
+          {
           let dataToSubmit = {
             email: values.email,
             password: values.password,
             name: values.name,
-            lastname: values.lastname,
-            image: `http://gravatar.com/avatar/${moment().unix()}?d=identicon`
+            contact: values.contact,
+            image: `http://gravatar.com/avatar/${moment().unix()}?d=identicon`,
+            role : 1
+            
           };
-
+        }
+        else{
+          let dataToSubmit = {
+            email: values.email,
+            password: values.password,
+            name: values.name,
+            lastname: values.contact,
+            image: `http://gravatar.com/avatar/${moment().unix()}?d=identicon`,
+           
+          };
+        }
+        
           dispatch(registerUser(dataToSubmit)).then(response => {
             if (response.payload.success) {
               props.history.push("/login");
@@ -96,101 +114,210 @@ function RegisterPage(props) {
           handleSubmit,
           handleReset,
         } = props;
-        return (
+          return (
+
+          
           <div className="app">
             <h2>Sign up</h2>
             <Form style={{ minWidth: '375px' }} {...formItemLayout} onSubmit={handleSubmit} >
+             
+  );
+}
+            {usertype == "buyer" && (
+              <Form>
+              
 
-              <Form.Item required label="Name">
-                <Input
-                  id="name"
-                  placeholder="Enter your name"
-                  type="text"
-                  value={values.name}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.name && touched.name ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.name && touched.name && (
-                  <div className="input-feedback">{errors.name}</div>
-                )}
-              </Form.Item>
+            <Form.Item required label="Name">
+              <Input
+                id="name"
+                placeholder="Enter your name"
+                type="text"
+                value={values.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.name && touched.name ? 'text-input error' : 'text-input'
+                }
+              />
+              {errors.name && touched.name && (
+                <div className="input-feedback">{errors.name}</div>
+              )}
+            </Form.Item>
 
-              <Form.Item required label="Last Name">
-                <Input
-                  id="lastName"
-                  placeholder="Enter your Last Name"
-                  type="text"
-                  value={values.lastName}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.lastName && touched.lastName ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.lastName && touched.lastName && (
-                  <div className="input-feedback">{errors.lastName}</div>
-                )}
-              </Form.Item>
+            <Form.Item required label="Last Name">
+              <Input
+                id="lastName"
+                placeholder="Enter your Contact"
+                type="text"
+                value={values.lastName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.lastName && touched.lastName ? 'text-input error' : 'text-input'
+                }
+              />
+              {errors.lastName && touched.lastName && (
+                <div className="input-feedback">{errors.lastName}</div>
+              )}
+            </Form.Item>
 
-              <Form.Item required label="Email" hasFeedback validateStatus={errors.email && touched.email ? "error" : 'success'}>
-                <Input
-                  id="email"
-                  placeholder="Enter your Email"
-                  type="email"
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.email && touched.email ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.email && touched.email && (
-                  <div className="input-feedback">{errors.email}</div>
-                )}
-              </Form.Item>
+            <Form.Item required label="Email" hasFeedback validateStatus={errors.email && touched.email ? "error" : 'success'}>
+              <Input
+                id="email"
+                placeholder="Enter your Email"
+                type="email"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.email && touched.email ? 'text-input error' : 'text-input'
+                }
+              />
+              {errors.email && touched.email && (
+                <div className="input-feedback">{errors.email}</div>
+              )}
+            </Form.Item>
 
-              <Form.Item required label="Password" hasFeedback validateStatus={errors.password && touched.password ? "error" : 'success'}>
-                <Input
-                  id="password"
-                  placeholder="Enter your password"
-                  type="password"
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.password && touched.password ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.password && touched.password && (
-                  <div className="input-feedback">{errors.password}</div>
-                )}
-              </Form.Item>
+            <Form.Item required label="Password" hasFeedback validateStatus={errors.password && touched.password ? "error" : 'success'}>
+              <Input
+                id="password"
+                placeholder="Enter your password"
+                type="password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.password && touched.password ? 'text-input error' : 'text-input'
+                }
+              />
+              {errors.password && touched.password && (
+                <div className="input-feedback">{errors.password}</div>
+              )}
+            </Form.Item>
 
-              <Form.Item required label="Confirm" hasFeedback>
-                <Input
-                  id="confirmPassword"
-                  placeholder="Enter your confirmPassword"
-                  type="password"
-                  value={values.confirmPassword}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.confirmPassword && touched.confirmPassword ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.confirmPassword && touched.confirmPassword && (
-                  <div className="input-feedback">{errors.confirmPassword}</div>
-                )}
-              </Form.Item>
+            
 
-              <Form.Item {...tailFormItemLayout}>
-                <Button onClick={handleSubmit} type="primary" disabled={isSubmitting}>
-                  Submit
-                </Button>
-              </Form.Item>
+            <Form.Item required label="Confirm" hasFeedback>
+              <Input
+                id="confirmPassword"
+                placeholder="Enter your confirmPassword"
+                type="password"
+                value={values.confirmPassword}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.confirmPassword && touched.confirmPassword ? 'text-input error' : 'text-input'
+                }
+              />
+              {errors.confirmPassword && touched.confirmPassword && (
+                <div className="input-feedback">{errors.confirmPassword}</div>
+              )}
+            </Form.Item>
+
+            <Form.Item {...tailFormItemLayout}>
+              <Button onClick={handleSubmit} type="primary" disabled={isSubmitting}>
+                Submit
+              </Button>
+            </Form.Item>
+            </Form>
+            )}
+            {usertype == "vendor" && (
+              <Form>
+              
+
+            <Form.Item required label="Manager Name">
+              <Input
+                id="name"
+                placeholder="Enter your name"
+                type="text"
+                value={values.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.name && touched.name ? 'text-input error' : 'text-input'
+                }
+              />
+              {errors.name && touched.name && (
+                <div className="input-feedback">{errors.name}</div>
+              )}
+            </Form.Item>
+
+            <Form.Item required label="Shop">
+              <Input
+                id="lastName"
+                placeholder="Enter Shop"
+                type="text"
+                value={values.lastName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.lastName && touched.lastName ? 'text-input error' : 'text-input'
+                }
+              />
+              {errors.lastName && touched.lastName && (
+                <div className="input-feedback">{errors.lastName}</div>
+              )}
+            </Form.Item>
+
+            <Form.Item required label="Email" hasFeedback validateStatus={errors.email && touched.email ? "error" : 'success'}>
+              <Input
+                id="email"
+                placeholder="Enter your Email"
+                type="email"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.email && touched.email ? 'text-input error' : 'text-input'
+                }
+              />
+              {errors.email && touched.email && (
+                <div className="input-feedback">{errors.email}</div>
+              )}
+            </Form.Item>
+
+            <Form.Item required label="Password" hasFeedback validateStatus={errors.password && touched.password ? "error" : 'success'}>
+              <Input
+                id="password"
+                placeholder="Enter your password"
+                type="password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.password && touched.password ? 'text-input error' : 'text-input'
+                }
+              />
+              {errors.password && touched.password && (
+                <div className="input-feedback">{errors.password}</div>
+              )}
+            </Form.Item>
+
+            <Form.Item required label="Confirm" hasFeedback>
+              <Input
+                id="confirmPassword"
+                placeholder="Enter your confirmPassword"
+                type="password"
+                value={values.confirmPassword}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.confirmPassword && touched.confirmPassword ? 'text-input error' : 'text-input'
+                }
+              />
+              {errors.confirmPassword && touched.confirmPassword && (
+                <div className="input-feedback">{errors.confirmPassword}</div>
+              )}
+            </Form.Item>
+
+                
+            <Form.Item {...tailFormItemLayout}>
+              <Button onClick={handleSubmit} type="primary" disabled={isSubmitting}>
+                Submit
+              </Button>
+            </Form.Item>
+            </Form>
+            )}
             </Form>
           </div>
         );

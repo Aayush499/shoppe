@@ -8,7 +8,7 @@ import {
 import UserCardBlock from './Sections/UserCardBlock';
 import { Result, Empty } from 'antd';
 import Axios from 'axios';
-import Paypal from '../../utils/Paypal';
+//import Paypal from '../../utils/Paypal';
 function CartPage(props) {
     const dispatch = useDispatch();
     const [Total, setTotal] = useState(0)
@@ -26,7 +26,8 @@ function CartPage(props) {
                 dispatch(getCartItems(cartItems, props.user.userData.cart))
                     .then((response) => {
                         if (response.payload.length > 0) {
-                            calculateTotal(response.payload)
+                           
+                            alert("cart")
                         }
                     })
             }
@@ -82,7 +83,7 @@ function CartPage(props) {
 
     return (
         <div style={{ width: '85%', margin: '3rem auto' }}>
-            <h1>My Cart</h1>
+            <h1>My Orders</h1>
             <div>
 
                 <UserCardBlock
@@ -107,7 +108,7 @@ function CartPage(props) {
                         }}>
                             <br />
                             <Empty description={false} />
-                            <p>No Items In the Cart</p>
+                            <p>...</p>
 
                         </div>
                 }
@@ -115,18 +116,8 @@ function CartPage(props) {
 
 
 
-            {/* Paypal Button */}
-
-            {ShowTotal &&
-
-                <Paypal
-                    toPay={Total}
-                    onSuccess={transactionSuccess}
-                    transactionError={transactionError}
-                    transactionCanceled={transactionCanceled}
-                />
-
-            }
+          
+             
 
 
 

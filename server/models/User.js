@@ -40,6 +40,13 @@ const userSchema = mongoose.Schema({
     },
     tokenExp: {
         type: Number
+    },
+    age: {
+        type: Number
+    },
+    batch: {
+        type: Number,
+        default: 1
     }
 })
 
